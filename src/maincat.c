@@ -1,23 +1,60 @@
 #include <stdio.h>
 #include "ffmc.h"
 #include <stdlib.h>
-int main()
+#include <unistd.h>
+
+
+int main(int argc,char *argv[])
 {
      int points;
-    points=pointsHandler(6,"QA.txt");
-    //results
+     char ch;
+     char a_line[2][80];
+     char r_line[2][80];
+     int i=0;
+     int d=0;
+     FILE *answers_file;
+     FILE *clear_file;
+    //dont change
     if(points==-1)
     return 1;
-    if(points<=10)
+//options ( if it was -c)
+    while((ch=getopt(argc,argv,"c"))!= EOF)
     {
-        printf("\n-----------Your Cat might be around 0-2 months-----------\n");
+        switch(ch)
+        {
+            case 'c':
+            clear_file=fopen("A.txt","w");
+            fprintf(clear_file,"");
+            fclose(clear_file);
+            answers_file=fopen("A.txt","a");
+            scanf("%79s",a_line[0]);
+            fprintf(answers_file,"%s\n",a_line[0]);
+            fscanf(answers_file,"%79[^\n]\n",r_line[0]);
+             scanf("%79s",a_line[1]);
+            fprintf(answers_file,"%s\n",a_line[1]);
+            fscanf(answers_file,"%79[^\n]\n",r_line[1]);
+               scanf("%79s",a_line[2]);
+            fprintf(answers_file,"%s\n",a_line[2]);
+              fscanf(answers_file,"%79[^\n]\n",r_line[2]);
+        
+        break;
+        }
+        
     }
-    else if(points<=20&&points>10)
-    {
-        printf("\n-----------Your Cat might be around 2-12 months-----------\n");
-    } else
-    {
-        printf("\n-----------Your Cat might be an adult-----------\n");
-    }
+//end of -c
+printf("Questions_________:");
+   points=pointsHandler(1,"QA.txt");
+
+
+if(points<=10)
+printf("%s",r_line[0]);
+    else if(points>10&&points<=20)
+    printf("%s",r_line[1]);
+    else
+    printf("%s",r_line[1]);
+
+//basic might delete 
+   printf("\n---Your Points: %d---\n",points);
+   fclose(answers_file);
     return 0;
 }

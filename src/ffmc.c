@@ -48,6 +48,7 @@ int pointsHandler(int points_to_add,char *fileq)
             
         }
     }
+    fclose(file1);
     return points;
 }
 
